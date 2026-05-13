@@ -25,7 +25,7 @@ router = APIRouter(prefix="/group")
         }
     },
 )
-@limiter.limit("5/minute")  # type: ignore
+@limiter.limit("1000/minute")  # type: ignore
 async def get_available_group_invite_link(
     request: Request,
     database_session: Annotated[AsyncSession, Depends(get_database_session)],
@@ -47,7 +47,7 @@ async def create_group(
 
 
 @router.patch(path="/total_participants", status_code=status.HTTP_204_NO_CONTENT)
-@limiter.limit("100/minute")  # type: ignore
+@limiter.limit("1000/minute")  # type: ignore
 async def patch_total_participants(
     request: Request,
     data: UpdateTotalParticipants,
@@ -59,7 +59,7 @@ async def patch_total_participants(
 
 
 @router.get(path="/all", status_code=status.HTTP_200_OK)
-@limiter.limit("5/minute")  # type: ignore
+@limiter.limit("3/minute")  # type: ignore
 async def get_all_groups(
     request: Request,
     _: Annotated[None, Depends(verify_api_access_token)],
