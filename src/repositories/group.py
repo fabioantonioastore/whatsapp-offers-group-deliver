@@ -11,12 +11,12 @@ class GroupRepository:
     def __init__(self, session: AsyncSession) -> None:
         self.__session = session
 
-    async def get_first_not_full(self) -> Group:
+    async def get_first_not_full(self) -> Group | None:
         statement = select(Group).where(
             Group.total_participants < GROUP_TOTAL_PARTICIPANTS_SAFE_LIMIT
         )
         result = await self.__session.execute(statement=statement)
-        return result.scalars().one()
+        return result.scalars().first()
 
     async def get_all(self) -> Sequence[Group]:
         statement = select(Group)

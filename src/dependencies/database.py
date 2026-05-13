@@ -12,3 +12,4 @@ async def get_database_session() -> AsyncGenerator[AsyncSession, None]:
             await session.commit()
         except Exception:
             await session.rollback()
+            raise
