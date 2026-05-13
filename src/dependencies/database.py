@@ -7,4 +7,8 @@ from ..infraestructure.database.session import async_session_factory
 
 async def get_database_session() -> AsyncGenerator[AsyncSession, None]:
     async with async_session_factory() as session:
-        yield session
+        try:
+            yield session
+            await session.commit()
+        except Exception:
+            await session.rollback()
