@@ -17,7 +17,7 @@ class GroupService(BaseService):
     async def get_available_group_invite_link(self) -> str:
         try:
             group = await self.__group_repository.get_first_not_full()
-            return group.invite_link
+            return group.invite_link # type: ignore
         except Exception as error:
             raise HTTPException(
                 detail=f"Not found: {error}", status_code=status.HTTP_404_NOT_FOUND
