@@ -14,7 +14,7 @@ def validate_invite_link(invite_link: str) -> str:
 
 
 def validate_total_participants(total_participants: int) -> int:
-    if not (0 < total_participants <= 1024):
+    if not (0 <= total_participants <= 1024):
         raise ValueError(
             "Invalid total participants value, must be greater than 0 e less or equal than 1024"
         )
