@@ -4,6 +4,7 @@ from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import Group
+from ..configs.environment import GROUP_TOTAL_PARTICIPANTS_SAFE_LIMIT
 
 
 class GroupRepository:
@@ -11,7 +12,9 @@ class GroupRepository:
         self.__session = session
 
     async def get_first_not_full(self) -> Group:
-        statement = select(Group).where(Group.total_participants < 1024)
+        statement = select(Group).where(
+            Group.total_participants < GROUP_TOTAL_PARTICIPANTS_SAFE_LIMIT
+        )
         result = await self.__session.execute(statement=statement)
         return result.scalars().one()
 
