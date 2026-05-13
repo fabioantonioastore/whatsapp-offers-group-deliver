@@ -13,7 +13,7 @@ router = APIRouter(prefix="/group")
 
 
 @router.get(
-    "/invite_link",
+    path="/invite_link",
     status_code=status.HTTP_200_OK,
     responses={
         200: {
@@ -34,7 +34,7 @@ async def get_available_group_invite_link(
     return await group_manager.get_available_group_invite_link()
 
 
-@router.post("/create", status_code=status.HTTP_201_CREATED)
+@router.post(path="", status_code=status.HTTP_201_CREATED)
 @limiter.limit("3/minute")  # type: ignore
 async def create_group(
     request: Request,
@@ -46,7 +46,7 @@ async def create_group(
     return await group_manager.create(group_data=data)
 
 
-@router.patch("/patch_total_participants", status_code=status.HTTP_204_NO_CONTENT)
+@router.patch(path="/total_participants", status_code=status.HTTP_204_NO_CONTENT)
 @limiter.limit("100/minute")  # type: ignore
 async def patch_total_participants(
     request: Request,
@@ -58,7 +58,7 @@ async def patch_total_participants(
     await group_manager.update_total_participants(data=data)
 
 
-@router.get("/all", status_code=status.HTTP_200_OK)
+@router.get(path="/all", status_code=status.HTTP_200_OK)
 @limiter.limit("5/minute")  # type: ignore
 async def get_all_groups(
     request: Request,
