@@ -1,0 +1,46 @@
+from typing import Sequence
+
+from sqlalchemy import select, update
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from ..models import Group
+
+
+class GroupRepository:
+    def __init__(self, session: AsyncSession) -> None:
+        self.__session = session
+
+    async def get_first_not_full(self) -> Group:
+        statement = select(Group).where(Group.total_participants < 1024)
+        result = await self.__session.execute(statement=statement)
+        return result.scalars().one()
+
+    async def get_all(self) -> Sequence[Group]:
+        statement = select(Group)
+        result = await self.__session.execute(statement=statement)
+        return result.scalars().all()
+
+    async def get_by_jid(self, jid: str) -> Group:
+        statement = select(Group).where(Group.jid == jid)
+        result = await self.__session.execute(statement=statement)
+        return result.scalars().one()
+
+    async def create(self, group: Group) -> Group:
+        self.__session.add(instance=group)
+        return group
+
+    async def delete(self, group: Group) -> None:
+        await self.__session.delete(group)
+
+    async def update_total_participants(
+        self, group_jid: str, total_participants: int
+    ) -> None:
+        statement = (
+            update(Group)
+            .where(Group.jid == group_jid)
+            .values(total_participants=total_participants)
+        )
+        await self.__session.execute(statement=statement)
+
+    def __repr__(self) -> str:
+        return f"GroupRepository({self.__session})"

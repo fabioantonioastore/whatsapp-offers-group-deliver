@@ -1,0 +1,34 @@
+services:
+  web:
+    build: .
+    image: whatsapp-group-deliver:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/code/src
+    env_file:
+      - .env
+    networks:
+      - whatsapp-groups-deliver
+    depends_on:
+      - database
+    command: uvicorn src.main:app --host 0.0.0.0 --port 80 --reload
+
+  database:
+    image: postgres:15-alpine
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - whatsapp-groups-deliver
+    
+networks:
+  whatsapp-groups-deliver:
+    driver: bridge
+
+volumes:
+  postgres_data:

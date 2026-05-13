@@ -1,3 +1,7 @@
+LICENSE
+README.md
+tests/
+.gitignore
 .venv
 .env
 
