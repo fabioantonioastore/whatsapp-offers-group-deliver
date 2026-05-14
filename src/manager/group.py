@@ -24,6 +24,12 @@ class GroupManager(BaseManager):
             total_participants=group.total_participants,
         )
 
+    async def fill_database(self, groups_data: list[CreateGroup]) -> list[GroupResponse]:
+        response: list[GroupResponse] = []
+        for group in groups_data:
+            response.append(await self.create(group_data=group))
+        return response
+
     async def update_total_participants(self, data: UpdateTotalParticipants) -> None:
         await self.__group_service.update_total_participants(data=data)
 

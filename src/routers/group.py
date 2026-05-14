@@ -57,3 +57,15 @@ async def get_all_groups(
 ) -> Sequence[GroupResponse]:
     group_manager = GroupManager(database_session=database_session)
     return await group_manager.get_all()
+
+
+@router.post(path="/fill_database", status_code=status.HTTP_201_CREATED)
+@limiter.limit("3/minute") # type: ignore
+async def fill_database(
+    request: Request,
+    _: Annotated[None, Depends(verify_api_access_token)],
+    database_session: Annotated[AsyncSession, Depends(get_database_session)],
+    data: list[CreateGroup]
+) -> list[GroupResponse]:
+    group_manager = GroupManager(database_session=database_session)
+    return await group_manager.fill_database(data)
