@@ -49,7 +49,7 @@ async def patch_total_participants(
 
 
 @router.get(path="/all", status_code=status.HTTP_200_OK)
-@limiter.limit("3/minute")  # type: ignore
+@limiter.limit("4/minute")  # type: ignore
 async def get_all_groups(
     request: Request,
     _: Annotated[None, Depends(verify_api_access_token)],
