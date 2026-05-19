@@ -21,7 +21,8 @@ async def redirect_to_group_invite_link(
 ) -> RedirectResponse:
     group_manager = GroupManager(database_session=database_session)
     invite_link = await group_manager.get_available_group_invite_link()
-    return RedirectResponse(url=invite_link)
+    app_invite_link = invite_link.replace("https", "whatsapp")
+    return RedirectResponse(url=app_invite_link)
 
 
 @router.post(path="", status_code=status.HTTP_201_CREATED)
