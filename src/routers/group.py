@@ -1,4 +1,3 @@
-import os
 from typing import Annotated, Sequence
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -11,8 +10,7 @@ from ..schemas.group import CreateGroup, UpdateTotalParticipants, GroupResponse
 from ..configs.rate_limit import limiter
 from ..configs.templates import templates
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_DIR = os.path.join(BASE_DIR, "..", "static")
+
 router = APIRouter(prefix="/group")
 
 
@@ -24,10 +22,7 @@ async def redirect_to_group_invite_link(
 ) -> Response:
     group_manager = GroupManager(database_session=database_session)
     invite_link = await group_manager.get_available_group_invite_link()
-    return templates.TemplateResponse(request=request, name="landing_page.html", context={
-        "group_link": invite_link,
-        "logo_url": f"{STATIC_DIR}/group_image.jpg"
-    })
+    return templates.TemplateResponse(request=request, name="landing_page.html", context={"group_link": invite_link})
 
 
 @router.post(path="", status_code=status.HTTP_201_CREATED)

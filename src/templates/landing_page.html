@@ -27,7 +27,6 @@
       overflow: hidden;
     }
 
-    /* ── animated background ── */
     body::before {
       content: '';
       position: fixed;
@@ -43,7 +42,6 @@
       to   { opacity: 1; }
     }
 
-    /* grain texture */
     body::after {
       content: '';
       position: fixed;
@@ -54,7 +52,6 @@
       opacity: .6;
     }
 
-    /* ── layout ── */
     .stage {
       position: relative;
       z-index: 1;
@@ -84,7 +81,6 @@
       to   { opacity:1; transform: translateY(0)   scale(1);    }
     }
 
-    /* ── icon ── */
     .icon-wrap {
       width: 80px; height: 80px;
       margin: 0 auto 1.5rem;
@@ -100,7 +96,6 @@
     }
     .icon-wrap svg { width: 42px; height: 42px; fill: #fff; }
 
-    /* ── badge ── */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -120,7 +115,6 @@
     .badge::before { content: '●'; font-size: .55rem; animation: blink 1.4s step-start infinite; }
     @keyframes blink { 50% { opacity: 0; } }
 
-    /* ── heading ── */
     h1 {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
@@ -148,7 +142,6 @@
       to   { opacity:1; transform: translateY(0);    }
     }
 
-    /* ── CTA button ── */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -183,7 +176,6 @@
     .btn:active { transform: translateY(0px);  box-shadow: 0 4px 16px rgba(37,211,102,.35); }
     .btn svg    { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
 
-    /* ── divider / footer ── */
     .divider {
       margin: 1.75rem 0 1.25rem;
       border: none;
@@ -207,7 +199,6 @@
     }
     .perk span { font-size: 1rem; }
 
-    /* floating particles */
     .particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
     .p {
       position: absolute;
@@ -226,15 +217,15 @@
 </head>
 <body>
 
-  <!-- particles -->
   <div class="particles" id="pts"></div>
 
   <div class="stage">
     <div class="card">
-      <!-- WhatsApp icon -->
       <div class="icon-wrap">
-  <img src="{{ logo_url }}" alt="PromosKing" />
-</div>
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 .5C7.44.5.5 7.44.5 16c0 2.72.69 5.37 2 7.72L.5 31.5l8.04-2c2.26 1.2 4.81 1.84 7.46 1.84C24.56 31.34 31.5 24.4 31.5 16S24.56.5 16 .5zm0 28.34c-2.4 0-4.74-.64-6.78-1.85l-.48-.28-5.02 1.32 1.34-4.9-.31-.5A11.83 11.83 0 0 1 4.16 16C4.16 9.44 9.44 4.16 16 4.16S27.84 9.44 27.84 16 22.56 28.84 16 28.84zm6.52-8.88c-.36-.18-2.12-1.04-2.45-1.16-.33-.12-.57-.18-.8.18-.24.36-.92 1.16-1.13 1.4-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.95-1.8-2.13-2.01-2.49-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.8-1.94-1.1-2.65-.29-.7-.59-.6-.8-.61h-.68c-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.54 3.88 6.15 5.44.86.37 1.53.59 2.05.75.86.27 1.65.23 2.27.14.69-.1 2.12-.87 2.42-1.71.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42z"/>
+        </svg>
+      </div>
 
       <div class="badge">Grupo exclusivo</div>
 
@@ -243,7 +234,6 @@
         Receba <strong>promoções exclusivas, cupons e descontos</strong> direto no seu celular — antes de todo mundo. Grátis e sem spam.
       </p>
 
-      <!-- ⬇️  Substitua o href pelo link real do seu grupo -->
       <a class="btn" href="{{group_link}}" target="_blank" rel="noopener">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <path d="M16 .5C7.44.5.5 7.44.5 16c0 2.72.69 5.37 2 7.72L.5 31.5l8.04-2c2.26 1.2 4.81 1.84 7.46 1.84C24.56 31.34 31.5 24.4 31.5 16S24.56.5 16 .5zm0 28.34c-2.4 0-4.74-.64-6.78-1.85l-.48-.28-5.02 1.32 1.34-4.9-.31-.5A11.83 11.83 0 0 1 4.16 16C4.16 9.44 9.44 4.16 16 4.16S27.84 9.44 27.84 16 22.56 28.84 16 28.84zm6.52-8.88c-.36-.18-2.12-1.04-2.45-1.16-.33-.12-.57-.18-.8.18-.24.36-.92 1.16-1.13 1.4-.21.24-.42.27-.78.09-.36-.18-1.52-.56-2.9-1.79-1.07-.95-1.8-2.13-2.01-2.49-.21-.36-.02-.55.16-.73.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.8-1.94-1.1-2.65-.29-.7-.59-.6-.8-.61h-.68c-.24 0-.63.09-.96.45-.33.36-1.26 1.23-1.26 3s1.29 3.48 1.47 3.72c.18.24 2.54 3.88 6.15 5.44.86.37 1.53.59 2.05.75.86.27 1.65.23 2.27.14.69-.1 2.12-.87 2.42-1.71.3-.84.3-1.56.21-1.71-.09-.15-.33-.24-.69-.42z"/>
@@ -262,7 +252,7 @@
   </div>
 
   <script>
-    // spawn floating particles
+
     const container = document.getElementById('pts');
     for (let i = 0; i < 22; i++) {
       const el = document.createElement('div');
