@@ -16,7 +16,7 @@ app = FastAPI(
     debug=False
 )
 app.mount(
-    path="statics",
+    path="/statics",
     app=StaticFiles(directory=os.path.join(BASE_DIR, "statics")),
     name="statics"
 )
